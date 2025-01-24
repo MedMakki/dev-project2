@@ -106,11 +106,11 @@
 
         <repository>
                 <id>nexus</id>
-                <url>http://localhost:8081/#browse/browse:maven-releases</url>
+                <url>http://localhost:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
                 <id>nexus</id>
-                <url>http://localhost:8081/#browse/browse:maven-snapshots</url>
+                <url>http://localhost:8081/repository/maven-snapshots</url>
         </snapshotRepository>
 
              
