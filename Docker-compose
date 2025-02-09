@@ -1,1 +1,37 @@
+version: '3.8'
+
+services:
+  # Service pour l'application backend
+  backend:
+    image: medmakki/backend:01  # Utilise l'image de Docker Hub que vous avez poussée
+    ports:
+      - "8089:8089"  # Expose le port 8089 pour l'application
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/eventsProject?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root  # Utilise le mot de passe défini dans la configuration MySQL ci-dessous
+    depends_on:
+      - mysql  # Assure que MySQL soit démarré avant l'application backend
+    networks:
+      - makki
+
+  # Service pour MySQL
+  mysql:
+    image: mysql:5.7  # Utilisation de l'image officielle MySQL
+    environment:
+      - MYSQL_ROOT_PASSWORD=root  # Mot de passe root pour MySQL
+      - MYSQL_DATABASE=eventsProject  # Crée la base de données eventsProject au démarrage
+    ports:
+      - "3306:3306"  # Expose le port MySQL (pour les tests ou gestion à distance)
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persiste les données dans un volume Docker
+    networks:
+      - makki
+
+volumes:
+  mysql-data:  # Volume pour persister les données de la base de données
+  
+networks:
+  makki:
+    driver: bridge
 
